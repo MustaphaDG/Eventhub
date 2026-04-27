@@ -99,7 +99,7 @@ public class EventHubApp {
         String eventHubName = System.getenv(ENV_EVENTHUB_NAME);
 
         if (eventHubName == null || eventHubName.isBlank()) {
-            if (!connectionString.toLowerCase(Locale.ROOT).contains("entitypath=")) {
+            if (!hasEntityPath(connectionString)) {
                 throw new IllegalArgumentException(
                     "EVENTHUB_NAME is required when the connection string does not include EntityPath."
                 );
@@ -124,6 +124,21 @@ public class EventHubApp {
             resolved = iterator.next();
         }
         return resolved;
+    }
+
+    static boolean hasEntityPath(String connectionString) {
+        String[] segments = connectionString.split(";");
+        for (String segment : segments) {
+            int equalsIndex = segment.indexOf('=');
+            if (equalsIndex <= 0) {
+                continue;
+            }
+            String key = segment.substring(0, equalsIndex).trim();
+            if ("EntityPath".equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String requireEnv(String name) {

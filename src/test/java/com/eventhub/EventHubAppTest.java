@@ -22,6 +22,9 @@ public class EventHubAppTest {
     public void shouldDetectEntityPath() {
         assertTrue(EventHubApp.hasEntityPath("Endpoint=sb://test/;SharedAccessKeyName=name;SharedAccessKey=key;EntityPath=hub"));
         assertTrue(EventHubApp.hasEntityPath("EntityPath=hub;Endpoint=sb://test/;SharedAccessKeyName=name;SharedAccessKey=key"));
+        assertTrue(EventHubApp.hasEntityPath("Endpoint=sb://test/; EntityPath = hub ;SharedAccessKeyName=name"));
+        assertFalse(EventHubApp.hasEntityPath("Endpoint=sb://test/;EntityPath=;SharedAccessKeyName=name"));
+        assertFalse(EventHubApp.hasEntityPath("Endpoint=sb://test/;EntityPath;SharedAccessKeyName=name"));
         assertFalse(EventHubApp.hasEntityPath("Endpoint=sb://test/;SharedAccessKeyName=name;SharedAccessKey=key"));
     }
 }

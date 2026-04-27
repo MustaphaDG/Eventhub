@@ -138,7 +138,8 @@ public class EventHubApp {
             if (key.isEmpty()) {
                 continue;
             }
-            if ("EntityPath".equalsIgnoreCase(key)) {
+            String value = segment.substring(equalsIndex + 1).trim();
+            if ("EntityPath".equalsIgnoreCase(key) && !value.isEmpty()) {
                 return true;
             }
         }

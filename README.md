@@ -22,6 +22,7 @@ mvn clean package
 ```bash
 java -jar target/eventhub-app-<version>.jar send "Hello Event Hubs" "Another message"
 ```
+Replace `<version>` with the version from `pom.xml` (for example, `1.0-SNAPSHOT`).
 
 ## Receive messages
 ```bash

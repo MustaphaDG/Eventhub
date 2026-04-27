@@ -19,6 +19,7 @@ public class EventHubApp {
     private static final String ENV_CONSUMER_GROUP = "EVENTHUB_CONSUMER_GROUP";
     private static final String ENV_PARTITION_ID = "EVENTHUB_PARTITION_ID";
     private static final int DEFAULT_MAX_EVENTS = 10;
+    private static final Duration DEFAULT_RECEIVE_TIMEOUT = Duration.ofSeconds(30);
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -80,7 +81,7 @@ public class EventHubApp {
                 partitionId,
                 DEFAULT_MAX_EVENTS,
                 EventPosition.earliest(),
-                Duration.ofSeconds(30)
+                DEFAULT_RECEIVE_TIMEOUT
             );
 
             int receivedCount = 0;
@@ -161,6 +162,7 @@ public class EventHubApp {
         System.out.println("Usage:");
         System.out.println("  java -jar target/eventhub-app-<version>.jar send [message1 message2 ...]");
         System.out.println("  java -jar target/eventhub-app-<version>.jar receive [partitionId]");
+        System.out.println("  (replace <version> with the version from pom.xml, e.g. 1.0-SNAPSHOT)");
         System.out.println();
         System.out.println("Environment variables:");
         System.out.println("  EVENTHUB_CONNECTION_STRING (required)");

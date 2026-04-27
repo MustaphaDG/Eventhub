@@ -130,10 +130,13 @@ public class EventHubApp {
         String[] segments = connectionString.split(";");
         for (String segment : segments) {
             int equalsIndex = segment.indexOf('=');
-            if (equalsIndex <= 0) {
+            if (equalsIndex < 0) {
                 continue;
             }
             String key = segment.substring(0, equalsIndex).trim();
+            if (key.isEmpty()) {
+                continue;
+            }
             if ("EntityPath".equalsIgnoreCase(key)) {
                 return true;
             }
@@ -156,8 +159,8 @@ public class EventHubApp {
 
     private static void printUsage() {
         System.out.println("Usage:");
-        System.out.println("  java -jar target/eventhub-app-1.0-SNAPSHOT.jar send [message1 message2 ...]");
-        System.out.println("  java -jar target/eventhub-app-1.0-SNAPSHOT.jar receive [partitionId]");
+        System.out.println("  java -jar target/eventhub-app-<version>.jar send [message1 message2 ...]");
+        System.out.println("  java -jar target/eventhub-app-<version>.jar receive [partitionId]");
         System.out.println();
         System.out.println("Environment variables:");
         System.out.println("  EVENTHUB_CONNECTION_STRING (required)");

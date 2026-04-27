@@ -20,10 +20,10 @@ mvn clean package
 
 ## Send messages
 ```bash
-java -jar target/eventhub-app-1.0-SNAPSHOT.jar send "Hello Event Hubs" "Another message"
+java -jar target/eventhub-app-<version>.jar send "Hello Event Hubs" "Another message"
 ```
 
 ## Receive messages
 ```bash
-java -jar target/eventhub-app-1.0-SNAPSHOT.jar receive
+java -jar target/eventhub-app-<version>.jar receive
 ```
